@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BabyFactory - Home | Premium Baby Clothing, Toys & Accessories</title>
+    <style>
+        /* CSS Reset - remove default browser margins and padding */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        /* Skip link - hidden visually, visible on keyboard focus */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background-color: #FFB5A7;
+            color: white;
+            padding: 8px 15px;
+            text-decoration: none;
+            z-index: 1000;
+            font-weight: bold;
+            border-radius: 0 0 5px 0;
+        }
+        .skip-link:focus { top: 0; }
+        /* Body - set base font (Arial), background color (cream), and text color (dark brown) */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #FFF8F0;
+            color: #4A4A4A;
+            line-height: 1.6;
+        }
+        /* Page container - Jello layout: min 768px, max 1200px, centered */
+        .container {
+            max-width: 1200px;
+            min-width: 768px;
+            margin: 0 auto;
+            background-color: #FFF8F0;
+        }
+        /* Header banner with logo and tagline */
+        .banner {
+            background-color: #FFF8F0;
+            padding: 20px;
+            text-align: center;
+        }
+        .banner h1 {
+            color: #6D6875;
+            font-size: 32px;
+            font-weight: bold;
+        }
+        .banner p {
+            color: #6D6875;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        /* Navigation bar - mint green background */
+        nav {
+            background-color: #A8DADC;
+            text-align: center;
+            padding: 12px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        /* Navigation uses unordered list for accessibility */
+        nav ul {
+            list-style: none;
+        }
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+        nav ul li a {
+            color: #4A4A4A;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: normal;
+        }
+        nav ul li a:hover {
+            color: #FFB5A7;
+        }
+        /* Active link - highlights the current page */
+        .active {
+            font-weight: bold !important;
+            color: #FFB5A7 !important;
+        }
+        /* Hero banner area with main slogan */
+        .hero {
+            background-color: #FFE5D9;
+            text-align: center;
+            padding: 80px 20px;
+        }
+        .hero h2 {
+            font-size: 36px;
+            color: #6D6875;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .hero p {
+            font-size: 18px;
+            color: #6D6875;
+            margin-bottom: 20px;
+        }
+        /* Hero call-to-action button */
+        .hero-btn {
+            display: inline-block;
+            background-color: #FFB5A7;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .hero-btn:hover {
+            background-color: #ff9a8b;
+        }
+        /* Section title for content blocks */
+        .section-title {
+            text-align: center;
+            padding: 50px 20px 10px;
+            color: #6D6875;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .section-subtitle {
+            text-align: center;
+            padding: 0 20px 30px;
+            color: #6D6875;
+            font-size: 16px;
+        }
+        /* Product grid - flexbox layout with wrapping */
+        .products {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 20px 30px 40px;
+        }
+        /* Product card - clickable, wrapped in anchor tag */
+        .product-card {
+            width: 220px;
+            text-align: center;
+            margin: 15px;
+            background-color: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        /* Product image - responsive, keeps aspect ratio */
+        .product-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        .product-card h3 {
+            font-size: 16px;
+            color: #6D6875;
+            margin-bottom: 5px;
+        }
+        /* Price - coral color, bold for emphasis */
+        .price {
+            color: #FFB5A7;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        /* "View Details" hint text on product card */
+        .view-details {
+            display: inline-block;
+            margin-top: 8px;
+            padding: 5px 15px;
+            background-color: #A8DADC;
+            color: #4A4A4A;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        /* Category preview cards - 3 large cards */
+        .categories {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 20px 30px 50px;
+        }
+        .category-card {
+            width: 300px;
+            margin: 15px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            transition: transform 0.2s;
+        }
+        .category-card:hover {
+            transform: translateY(-5px);
+        }
+        .category-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .category-info {
+            padding: 20px;
+            text-align: center;
+            background-color: white;
+        }
+        .category-info h3 {
+            color: #6D6875;
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+        .category-info p {
+            color: #4A4A4A;
+            font-size: 14px;
+        }
+        /* Why choose us section - 4 feature blocks */
+        .features {
+            background-color: #FFE5D9;
+            padding: 50px 30px;
+        }
+        .features-grid {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .feature-item {
+            width: 220px;
+            text-align: center;
+            margin: 15px;
+        }
+        .feature-icon {
+            font-size: 45px;
+            margin-bottom: 15px;
+        }
+        .feature-item h3 {
+            color: #6D6875;
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+        .feature-item p {
+            font-size: 14px;
+            color: #4A4A4A;
+        }
+        /* Customer testimonials section */
+        .testimonials {
+            padding: 50px 30px;
+        }
+        .testimonial-grid {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .testimonial-card {
+            width: 300px;
+            background-color: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin: 15px;
+        }
+        .testimonial-card .stars {
+            color: #FFB5A7;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .testimonial-card p {
+            font-size: 14px;
+            color: #4A4A4A;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+        .testimonial-card .author {
+            font-weight: bold;
+            color: #6D6875;
+            font-size: 14px;
+        }
+        /* Newsletter signup section */
+        .newsletter {
+            background-color: #A8DADC;
+            padding: 50px 30px;
+            text-align: center;
+        }
+        .newsletter h2 {
+            color: #4A4A4A;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .newsletter p {
+            color: #4A4A4A;
+            font-size: 15px;
+            margin-bottom: 20px;
+        }
+        .newsletter-form {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        .newsletter-form input {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+            width: 250px;
+        }
+        .newsletter-form button {
+            background-color: #FFB5A7;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .newsletter-form button:hover {
+            background-color: #ff9a8b;
+        }
+        /* Store info bar */
+        .store-info {
+            background-color: #A8DADC;
+            padding: 25px;
+            text-align: center;
+            color: #4A4A4A;
+            font-size: 15px;
+            line-height: 2;
+        }
+        /* Footer */
+        footer {
+            background-color: #4A4A4A;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 12px;
+        }
+        footer a {
+            color: #A8DADC;
+            text-decoration: none;
+            margin: 0 8px;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+        /* Responsive design - mobile breakpoint */
+        @media (max-width: 768px) {
+            /* Container fills mobile width, no min-width */
+            .container { min-width: 100%; }
+            /* Banner - smaller text */
+            .banner h1 { font-size: 24px; }
+            .banner p { font-size: 12px; }
+            /* Navigation - vertical stack */
+            nav ul li { display: block; margin: 5px 0; }
+            nav ul li a { font-size: 14px; }
+            /* Hero - less padding */
+            .hero { padding: 40px 15px; }
+            .hero h2 { font-size: 24px; }
+            .hero p { font-size: 15px; }
+            /* Section titles */
+            .section-title { font-size: 22px; padding: 30px 15px 5px; }
+            .section-subtitle { font-size: 14px; padding: 0 15px 20px; }
+            /* Product / category / feature / testimonial cards - full width */
+            .product-card { width: 90%; margin: 10px auto; }
+            .category-card { width: 90%; margin: 10px auto; }
+            .feature-item { width: 90%; margin: 10px auto; }
+            .testimonial-card { width: 90%; margin: 10px auto; }
+            /* Newsletter form - stack vertically */
+            .newsletter-form { flex-direction: column; align-items: center; }
+            .newsletter-form input { width: 80%; }
+            /* Footer - smaller text */
+            footer p { font-size: 11px; }
+            footer a { display: inline-block; margin: 4px; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- Skip link for accessibility - visually hidden, visible on keyboard focus -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Header banner with store logo -->
+    <div class="banner">
+        <h1>🍼 BabyFactory</h1>
+        <p>Premium Baby Clothing, Toys & Accessories</p>
+    </div>
+
+    <!-- Main navigation - role and aria-label for accessibility -->
+    <nav role="navigation" aria-label="Main navigation">
+        <ul>
+            <li><a href="index.html" class="active" title="Go to home page">Home</a></li>
+            <li><a href="clothing.html" title="Browse baby clothing">Clothing</a></li>
+            <li><a href="toys.html" title="Browse baby toys">Toys</a></li>
+            <li><a href="accessories.html" title="Browse baby accessories">Accessories</a></li>
+            <li><a href="about.html" title="Learn about BabyFactory">About Us</a></li>
+            <li><a href="contact.html" title="Contact us">Contact</a></li>
+            <li> <a href = "sitemap.html" title = "View site map" > Site Map </a > </li >
+        </ul>
+    </nav>
+
+    <!-- Main content wrapped in main element for ARIA landmark -->
+    <main role="main" id="main-content">
+        <!-- Hero banner with main slogan and CTA button -->
+        <div class="hero">
+            <h2>For Your Little One, Only the Best</h2>
+            <p>Premium baby clothing, toys &amp; accessories at Deer Park Mall</p>
+            <a href="#featured" class="hero-btn">Shop Now</a>
+        </div>
+
+        <!-- Featured products section - each card links to product detail page -->
+        <h2 class="section-title" id="featured">Featured Products</h2>
+        <p class="section-subtitle">Our most popular items loved by parents</p>
+        <div class="products">
+            <a href="product.html?id=romper" class="product-card" title="View Cotton Baby Romper details">
+                <img class="product-img" src="images/romper.jpg" alt="Cotton Baby Romper">
+                <h3>Cotton Baby Romper</h3>
+                <p class="price">$29.99</p>
+                <span class="view-details">View Details</span>
+            </a>
+            <a href="product.html?id=bunny" class="product-card" title="View Plush Bunny Toy details">
+                <img class="product-img" src="images/bunny.jpg" alt="Plush Bunny Toy">
+                <h3>Plush Bunny Toy</h3>
+                <p class="price">$24.99</p>
+                <span class="view-details">View Details</span>
+            </a>
+            <a href="product.html?id=shoes" class="product-card" title="View Soft Sole Baby Shoes details">
+                <img class="product-img" src="images/shoes.jpg" alt="Soft Sole Baby Shoes">
+                <h3>Soft Sole Baby Shoes</h3>
+                <p class="price">$34.99</p>
+                <span class="view-details">View Details</span>
+            </a>
+            <a href="product.html?id=teether" class="product-card" title="View Silicone Teether Set details">
+                <img class="product-img" src="images/teether.jpg" alt="Silicone Teether Set">
+                <h3>Silicone Teether Set</h3>
+                <p class="price">$19.99</p>
+                <span class="view-details">View Details</span>
+            </a>
+        </div>
+
+        <!-- Category preview cards - link to category pages -->
+        <h2 class="section-title">Shop by Category</h2>
+        <p class="section-subtitle">Explore our full range of premium baby products</p>
+        <div class="categories">
+            <a href="clothing.html" class="category-card" title="Browse all clothing">
+                <img class="category-img" src="images/cat-clothing.jpg" alt="Baby Clothing Category">
+                <div class="category-info">
+                    <h3>Clothing</h3>
+                    <p>Soft, cute outfits for every occasion</p>
+                </div>
+            </a>
+            <a href="toys.html" class="category-card" title="Browse all toys">
+                <img class="category-img" src="images/cat-toys.jpg" alt="Baby Toys Category">
+                <div class="category-info">
+                    <h3>Toys</h3>
+                    <p>Fun, safe toys for learning and play</p>
+                </div>
+            </a>
+            <a href="accessories.html" class="category-card" title="Browse all accessories">
+                <img class="category-img" src="images/cat-accessories.jpg" alt="Baby Accessories Category">
+                <div class="category-info">
+                    <h3>Accessories</h3>
+                    <p>Complete the look with adorable add-ons</p>
+                </div>
+            </a>
+        </div>
+
+        <!-- Why choose us section - 4 feature blocks -->
+        <div class="features">
+            <h2 class="section-title" style="color:#6D6875;">Why Choose BabyFactory?</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">🚚</div>
+                    <h3>Free Local Delivery</h3>
+                    <p>Free delivery on orders over $50 within Palmerston North</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">✅</div>
+                    <h3>Quality Guaranteed</h3>
+                    <p>All products tested for safety and durability</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">💰</div>
+                    <h3>Easy Returns</h3>
+                    <p>30-day hassle-free return policy</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">👩‍👦</div>
+                    <h3>Expert Advice</h3>
+                    <p>Our staff are parents too, here to help you</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Customer testimonials section -->
+        <div class="testimonials">
+            <h2 class="section-title">What Our Customers Say</h2>
+            <p class="section-subtitle">Real reviews from happy parents</p>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p>"The cotton romper is so soft and well-made. My baby loves wearing it!"</p>
+                    <p class="author">- Sarah M., Palmerston North</p>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p>"Best baby shop in town. Great selection and the staff are so helpful."</p>
+                    <p class="author">- James T., Feilding</p>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p>"The plush bunny toy became my daughter's favorite. Highly recommend!"</p>
+                    <p class="author">- Emily R., Palmerston North</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Newsletter signup section -->
+        <div class="newsletter">
+            <h2>Join Our Family</h2>
+            <p>Subscribe to get updates on new arrivals and special offers</p>
+            <form class="newsletter-form" onsubmit="alert('Thank you for subscribing!'); return false;">
+                <input type="email" placeholder="Enter your email" required>
+                <button type="submit">Subscribe</button>
+            </form>
+        </div>
+    </main>
+
+    <!-- Store information bar -->
+    <div class="store-info">
+        <p>📍 Deer Park Mall &nbsp;|&nbsp; 🕐 Mon-Sun: 9am - 6pm &nbsp;|&nbsp; 📞 06-123-4567 &nbsp;|&nbsp; ✉️ info@babyfactory.co.nz</p>
+    </div>
+
+    <!-- Footer with copyright, social links, and competitor links -->
+    <footer>
+        <p>&copy; 2026 BabyFactory. All Rights Reserved. | Last updated: September 2026</p>
+        <p style="margin-top:8px;">
+            <a href="https://www.facebook.com/babyfactory" title="Visit our Facebook page" target="_blank">Facebook</a> |
+            <a href="https://www.instagram.com/babyfactory" title="Visit our Instagram page" target="_blank">Instagram</a> |
+            <a href="about.html" title="Read our privacy policy">Privacy Policy</a>
+            <a href = "sitemap.html" title = "View site map" > Site Map </a >
+        </p>
+        <p style="margin-top:8px; color:#A8DADC;">
+            Similar stores:
+            <a href="https://babylovenz.com/" title="Visit Babylove NZ website" target="_blank">Babylove NZ</a> |
+            <a href="https://bumbelou.com/" title="Visit Bumbelou website" target="_blank">Bumbelou</a> |
+            <a href="https://eversimplicity.com/" title="Visit Ever Simplicity website" target="_blank">Ever Simplicity</a>
+        </p>
+    </footer>
+</div>
+</body>
+</html>

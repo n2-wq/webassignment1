@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BabyFactory - Clothing | Baby & Toddler Clothes</title>
+    <style>
+        /* CSS Reset - remove default browser margins and padding */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        /* Skip link - hidden visually, visible on keyboard focus */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background-color: #FFB5A7;
+            color: white;
+            padding: 8px 15px;
+            text-decoration: none;
+            z-index: 1000;
+            font-weight: bold;
+            border-radius: 0 0 5px 0;
+        }
+        .skip-link:focus { top: 0; }
+        /* Body - base font Arial, cream background, dark brown text */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #FFF8F0;
+            color: #4A4A4A;
+            line-height: 1.6;
+        }
+        /* Page container - Jello layout: min 768px, max 1200px, centered */
+        .container {
+            max-width: 1200px;
+            min-width: 768px;
+            margin: 0 auto;
+            background-color: #FFF8F0;
+        }
+        /* Header banner with store logo */
+        .banner {
+            background-color: #FFF8F0;
+            padding: 20px;
+            text-align: center;
+        }
+        .banner h1 { color: #6D6875; font-size: 32px; font-weight: bold; }
+        .banner p { color: #6D6875; font-size: 14px; margin-top: 5px; }
+        /* Navigation bar - mint green background, sticky on scroll */
+        nav {
+            background-color: #A8DADC;
+            text-align: center;
+            padding: 12px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        nav ul { list-style: none; }
+        nav ul li { display: inline; margin: 0 15px; }
+        nav ul li a { color: #4A4A4A; text-decoration: none; font-size: 15px; }
+        nav ul li a:hover { color: #FFB5A7; }
+        .active { font-weight: bold !important; color: #FFB5A7 !important; }
+        /* Breadcrumb navigation - shows user's current location */
+        .breadcrumb { background-color: #FFF8F0; padding: 12px 30px; font-size: 14px; color: #6D6875; }
+        .breadcrumb a { color: #FFB5A7; text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        .breadcrumb span { font-weight: bold; }
+        /* Hero banner area with page heading */
+        .hero { background-color: #FFE5D9; text-align: center; padding: 60px 20px; }
+        .hero h2 { font-size: 32px; color: #6D6875; font-weight: bold; margin-bottom: 10px; }
+        .hero p { font-size: 18px; color: #6D6875; }
+        .section-title { text-align: center; padding: 40px 20px 10px; color: #6D6875; font-size: 26px; font-weight: bold; }
+        .section-subtitle { text-align: center; padding: 0 20px 25px; color: #6D6875; font-size: 15px; }
+        /* Product grid - flexbox layout with wrapping */
+        .products { display: flex; justify-content: center; flex-wrap: wrap; padding: 20px 30px 40px; }
+        /* Product card - clickable, wrapped in anchor tag */
+        .product-card {
+            width: 220px;
+            text-align: center;
+            margin: 15px;
+            background-color: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        .product-img { width: 100%; height: 180px; object-fit: cover; border-radius: 8px; margin-bottom: 10px; }
+        .product-card h3 { font-size: 16px; color: #6D6875; margin-bottom: 5px; }
+        .price { color: #FFB5A7; font-weight: bold; font-size: 18px; }
+        .view-details {
+            display: inline-block;
+            margin-top: 8px;
+            padding: 5px 15px;
+            background-color: #A8DADC;
+            color: #4A4A4A;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        /* Clothing care tips section */
+        .care-tips { background-color: #FFE5D9; padding: 50px 30px; text-align: center; }
+        .care-tips h2 { color: #6D6875; font-size: 24px; margin-bottom: 20px; }
+        .tips-grid { display: flex; justify-content: center; flex-wrap: wrap; max-width: 900px; margin: 0 auto; }
+        .tip-item {
+            width: 250px;
+            margin: 15px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .tip-item .icon { font-size: 35px; margin-bottom: 10px; }
+        .tip-item h3 { color: #6D6875; font-size: 16px; margin-bottom: 8px; }
+        .tip-item p { font-size: 13px; color: #4A4A4A; }
+        .store-info { background-color: #A8DADC; padding: 25px; text-align: center; color: #4A4A4A; font-size: 15px; line-height: 2; }
+        footer { background-color: #4A4A4A; color: white; text-align: center; padding: 20px; font-size: 12px; }
+        footer a { color: #A8DADC; text-decoration: none; margin: 0 8px; }
+        footer a:hover { text-decoration: underline; }
+        /* Responsive design - mobile breakpoint */
+        @media (max-width: 768px) {
+            .container { min-width: 100%; }
+            .banner h1 { font-size: 24px; }
+            nav ul li { display: block; margin: 5px 0; }
+            nav ul li a { font-size: 14px; }
+            .breadcrumb { padding: 10px 15px; font-size: 13px; }
+            .hero { padding: 40px 15px; }
+            .hero h2 { font-size: 24px; }
+            .hero p { font-size: 15px; }
+            .section-title { font-size: 22px; padding: 30px 15px 5px; }
+            .section-subtitle { font-size: 14px; padding: 0 15px 20px; }
+            .product-card { width: 90%; margin: 10px auto; }
+            .tip-item { width: 90%; margin: 10px auto; }
+            .care-tips { padding: 30px 15px; }
+            footer p { font-size: 11px; }
+            footer a { display: inline-block; margin: 4px; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- Skip link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Header banner with store logo -->
+    <div class="banner">
+        <h1>🍼 BabyFactory</h1>
+        <p>Premium Baby Clothing, Toys & Accessories</p>
+    </div>
+
+    <!-- Main navigation - role and aria-label for accessibility -->
+    <nav role="navigation" aria-label="Main navigation">
+        <ul>
+            <li><a href="index.html" title="Go to home page">Home</a></li>
+            <li><a href="clothing.html" class="active" title="Browse baby clothing">Clothing</a></li>
+            <li><a href="toys.html" title="Browse baby toys">Toys</a></li>
+            <li><a href="accessories.html" title="Browse baby accessories">Accessories</a></li>
+            <li><a href="about.html" title="Learn about BabyFactory">About Us</a></li>
+            <li><a href="contact.html" title="Contact us">Contact</a></li>
+            <li> <a href = "sitemap.html" title = "View site map" > Site Map </a > </li >
+        </ul>
+    </nav>
+
+    <!-- Breadcrumb navigation - shows user's current location -->
+    <div class="breadcrumb">
+        <a href="index.html" title="Go to home page">Home</a>
+        &rsaquo;
+        <span>Clothing</span>
+    </div>
+
+    <!-- Main content -->
+    <main role="main" id="main-content">
+        <!-- Hero banner - Clothing heading -->
+        <div class="hero">
+            <h2>Baby &amp; Toddler Clothing</h2>
+            <p>Soft, cute outfits for your little one</p>
+        </div>
+
+        <!-- Clothing product collection - each card links to product detail page -->
+        <h2 class="section-title">Our Clothing Collection</h2>
+        <p class="section-subtitle">Click any product to view details and purchase</p>
+        <div class="products">
+            <a href="product.html?id=romper" class="product-card" title="View Cotton Baby Romper">
+                <img class="product-img" src="images/clothes1.jpg" alt="Cotton Baby Romper">
+                <h3>Cotton Baby Romper</h3>
+                <p class="price">$29.99</p>
+                <span class="view-details">View Details</span>
+            </a>
+            <a href="product.html?id=dress" class="product-card" title="View Floral Summer Dress">
+                <img class="product-img" src="images/clothes2.jpg" alt="Floral Summer Dress">
+                <h3>Floral Summer Dress</h3>
+                <p class="price">$34.99</p>
+                <span class="view-details">View Details</span>
+            </a>
+            <a href="product.html?id=hoodie" class="product-card" title="View Fleece Hoodie">
+                <img class="product-img" src="images/clothes3.jpg" alt="Fleece Hoodie">
+                <h3>Fleece Hoodie</h3>
+                <p class="price">$39.99</p>
+                <span class="view-details">View Details</span>
+            </a>
+            <a href="product.html?id=pants" class="product-card" title="View Comfort Cotton Pants">
+                <img class="product-img" src="images/clothes4.jpg" alt="Comfort Cotton Pants">
+                <h3>Comfort Cotton Pants</h3>
+                <p class="price">$24.99</p>
+                <span class="view-details">View Details</span>
+            </a>
+            <a href="product.html?id=tshirt" class="product-card" title="View Striped Baby T-Shirt">
+                <img class="product-img" src="images/clothes5.jpg" alt="Striped Baby T-Shirt">
+                <h3>Striped Baby T-Shirt</h3>
+                <p class="price">$19.99</p>
+                <span class="view-details">View Details</span>
+            </a>
+            <a href="product.html?id=sweater" class="product-card" title="View Knitted Baby Sweater">
+                <img class="product-img" src="images/clothes6.jpg" alt="Knitted Baby Sweater">
+                <h3>Knitted Baby Sweater</h3>
+                <p class="price">$36.99</p>
+                <span class="view-details">View Details</span>
+            </a>
+            <a href="product.html?id=overalls" class="product-card" title="View Baby Denim Overalls">
+                <img class="product-img" src="images/clothes7.jpg" alt="Baby Denim Overalls">
+                <h3>Baby Denim Overalls</h3>
+                <p class="price">$42.99</p>
+                <span class="view-details">View Details</span>
+            </a>
+            <a href="product.html?id=pajama" class="product-card" title="View Pajama Set">
+                <img class="product-img" src="images/clothes8.jpg" alt="Pajama Set">
+                <h3>Pajama Set</h3>
+                <p class="price">$27.99</p>
+                <span class="view-details">View Details</span>
+            </a>
+        </div>
+
+        <!-- Clothing care tips section - adds more content to the page -->
+        <div class="care-tips">
+            <h2>Baby Clothing Care Tips</h2>
+            <div class="tips-grid">
+                <div class="tip-item">
+                    <div class="icon">🧺</div>
+                    <h3>Wash Before First Use</h3>
+                    <p>Always wash new clothes before your baby wears them to remove any manufacturing residues.</p>
+                </div>
+                <div class="tip-item">
+                    <div class="icon">🌡️</div>
+                    <h3>Use Cold Water</h3>
+                    <p>Cold water is gentler on baby fabrics and helps prevent shrinkage and color fading.</p>
+                </div>
+                <div class="tip-item">
+                    <div class="icon">🌿</div>
+                    <h3>Mild Detergent Only</h3>
+                    <p>Use fragrance-free, baby-safe detergents to protect your baby's sensitive skin.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Store information bar -->
+    <div class="store-info">
+        <p>📍 Deer Park Mall &nbsp;|&nbsp; 🕐 Mon-Sun: 9am - 6pm &nbsp;|&nbsp; 📞 06-123-4567 &nbsp;|&nbsp; ✉️ info@babyfactory.co.nz</p>
+    </div>
+
+    <!-- Footer with copyright, social links, and competitor links -->
+    <footer>
+        <p>&copy; 2026 BabyFactory. All Rights Reserved. | Last updated: September 2026</p>
+        <p style="margin-top:8px;">
+            <a href="https://www.facebook.com/babyfactory" title="Visit our Facebook page" target="_blank">Facebook</a> |
+            <a href="https://www.instagram.com/babyfactory" title="Visit our Instagram page" target="_blank">Instagram</a> |
+            <a href="about.html" title="Read our privacy policy">Privacy Policy</a>
+             <a href = "sitemap.html" title = "View site map" > Site Map </a >
+        </p>
+        <p style="margin-top:8px; color:#A8DADC;">
+            Similar stores:
+            <a href="https://babylovenz.com/" title="Visit Babylove NZ website" target="_blank">Babylove NZ</a> |
+            <a href="https://bumbelou.com/" title="Visit Bumbelou website" target="_blank">Bumbelou</a> |
+            <a href="https://eversimplicity.com/" title="Visit Ever Simplicity website" target="_blank">Ever Simplicity</a>
+        </p>
+    </footer>
+</div>
+</body>
+</html>

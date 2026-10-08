@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BabyFactory - Site Map | Full Page Directory</title>
+    <style>
+        /* CSS Reset */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        /* Skip link for accessibility */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background-color: #FFB5A7;
+            color: white;
+            padding: 8px 15px;
+            text-decoration: none;
+            z-index: 1000;
+            font-weight: bold;
+            border-radius: 0 0 5px 0;
+        }
+        .skip-link:focus { top: 0; }
+        /* Body */
+        body { font-family: Arial, sans-serif; background-color: #FFF8F0; color: #4A4A4A; line-height: 1.6; }
+        .container { max-width: 1200px; min-width: 768px; margin: 0 auto; background-color: #FFF8F0; }
+        /* Header banner */
+        .banner { background-color: #FFF8F0; padding: 20px; text-align: center; }
+        .banner h1 { color: #6D6875; font-size: 32px; font-weight: bold; }
+        .banner p { color: #6D6875; font-size: 14px; margin-top: 5px; }
+        /* Navigation */
+        nav { background-color: #A8DADC; text-align: center; padding: 12px; position: sticky; top: 0; z-index: 100; }
+        nav ul { list-style: none; }
+        nav ul li { display: inline; margin: 0 15px; }
+        nav ul li a { color: #4A4A4A; text-decoration: none; font-size: 15px; }
+        nav ul li a:hover { color: #FFB5A7; }
+        /* Breadcrumb */
+        .breadcrumb { background-color: #FFF8F0; padding: 12px 30px; font-size: 14px; color: #6D6875; }
+        .breadcrumb a { color: #FFB5A7; text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        .breadcrumb span { font-weight: bold; }
+        /* Hero */
+        .hero { background-color: #FFE5D9; text-align: center; padding: 60px 20px; }
+        .hero h2 { font-size: 32px; color: #6D6875; font-weight: bold; margin-bottom: 10px; }
+        .hero p { font-size: 18px; color: #6D6875; }
+        /* Sitemap content area */
+        .content { padding: 40px 30px; max-width: 900px; margin: 0 auto; }
+        .content > h2 { color: #6D6875; font-size: 26px; margin-bottom: 25px; text-align: center; }
+        /* Sitemap sections - each category as a card */
+        .sitemap-sections { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 25px; }
+        .sitemap-section {
+            flex: 1;
+            min-width: 250px;
+            background-color: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .sitemap-section h3 {
+            color: #6D6875;
+            font-size: 18px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #A8DADC;
+        }
+        .sitemap-section ul { list-style: none; }
+        .sitemap-section ul li { margin-bottom: 10px; padding-left: 20px; position: relative; }
+        .sitemap-section ul li::before {
+            content: "▸";
+            color: #FFB5A7;
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+        .sitemap-section ul li a { color: #4A4A4A; text-decoration: none; font-size: 15px; }
+        .sitemap-section ul li a:hover { color: #FFB5A7; text-decoration: underline; }
+        .sitemap-section ul li ul { margin-left: 15px; margin-top: 8px; }
+        .sitemap-section ul li ul li { margin-bottom: 5px; padding-left: 15px; }
+        .sitemap-section ul li ul li::before { content: "·"; color: #A8DADC; }
+        /* External resources section */
+        .external-resources {
+            background-color: #FFE5D9;
+            padding: 30px;
+            border-radius: 10px;
+            margin-top: 30px;
+            text-align: center;
+        }
+        .external-resources h3 { color: #6D6875; font-size: 18px; margin-bottom: 15px; }
+        .external-resources a {
+            display: inline-block;
+            margin: 5px 10px;
+            padding: 8px 20px;
+            background-color: white;
+            color: #4A4A4A;
+            text-decoration: none;
+            border-radius: 20px;
+            font-size: 14px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .external-resources a:hover { background-color: #A8DADC; }
+        /* Store info and footer */
+        .store-info { background-color: #A8DADC; padding: 25px; text-align: center; color: #4A4A4A; font-size: 15px; line-height: 2; }
+        footer { background-color: #4A4A4A; color: white; text-align: center; padding: 20px; font-size: 12px; }
+        footer a { color: #A8DADC; text-decoration: none; margin: 0 8px; }
+        footer a:hover { text-decoration: underline; }
+        /* Responsive design - mobile breakpoint */
+        @media (max-width: 768px) {
+            .container { min-width: 100%; }
+            .banner h1 { font-size: 24px; }
+            nav ul li { display: block; margin: 5px 0; }
+            nav ul li a { font-size: 14px; }
+            .breadcrumb { padding: 10px 15px; font-size: 13px; }
+            .hero { padding: 40px 15px; }
+            .hero h2 { font-size: 24px; }
+            .hero p { font-size: 15px; }
+            .content { padding: 25px 15px; }
+            .sitemap-sections { flex-direction: column; }
+            .sitemap-section { min-width: 100%; }
+            .external-resources { padding: 20px 15px; }
+            .external-resources a { display: block; margin: 5px auto; width: 80%; }
+            footer p { font-size: 11px; }
+            footer a { display: inline-block; margin: 4px; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- Skip link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Header banner -->
+    <div class="banner">
+        <h1>🍼 BabyFactory</h1>
+        <p>Premium Baby Clothing, Toys & Accessories</p>
+    </div>
+
+    <!-- Main navigation -->
+    <nav role="navigation" aria-label="Main navigation">
+        <ul>
+            <li><a href="index.html" title="Go to home page">Home</a></li>
+            <li><a href="clothing.html" title="Browse baby clothing">Clothing</a></li>
+            <li><a href="toys.html" title="Browse baby toys">Toys</a></li>
+            <li><a href="accessories.html" title="Browse baby accessories">Accessories</a></li>
+            <li><a href="about.html" title="Learn about BabyFactory">About Us</a></li>
+            <li><a href="contact.html" title="Contact us">Contact</a></li>
+            <li><a href="sitemap.html" class="active" title="View site map">Site Map</a></li>
+        </ul>
+    </nav>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <a href="index.html" title="Go to home page">Home</a>
+        &rsaquo;
+        <span>Site Map</span>
+    </div>
+
+    <!-- Main content -->
+    <main role="main" id="main-content">
+        <div class="hero">
+            <h2>Site Map</h2>
+            <p>Complete directory of all pages on BabyFactory</p>
+        </div>
+
+        <div class="content">
+            <h2>Explore Our Website</h2>
+
+            <!-- Sitemap sections organized by category -->
+            <div class="sitemap-sections">
+                <!-- Main pages section -->
+                <div class="sitemap-section">
+                    <h3>Main Pages</h3>
+                    <ul>
+                        <li><a href="index.html" title="Go to home page">Home</a></li>
+                        <li><a href="about.html" title="Learn about BabyFactory">About Us</a></li>
+                        <li><a href="contact.html" title="Contact us">Contact Us</a></li>
+                        <li><a href="sitemap.html" title="View site map">Site Map</a></li>
+                    </ul>
+                </div>
+
+                <!-- Product categories section -->
+                <div class="sitemap-section">
+                    <h3>Product Categories</h3>
+                    <ul>
+                        <li><a href="clothing.html" title="Browse baby clothing">Clothing</a>
+                            <ul>
+                                <li><a href="product.html?id=romper" title="View Cotton Baby Romper">Cotton Baby Romper</a></li>
+                                <li><a href="product.html?id=dress" title="View Floral Summer Dress">Floral Summer Dress</a></li>
+                                <li><a href="product.html?id=hoodie" title="View Fleece Hoodie">Fleece Hoodie</a></li>
+                                <li><a href="product.html?id=pajama" title="View Pajama Set">Pajama Set</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="toys.html" title="Browse baby toys">Toys</a>
+                            <ul>
+                                <li><a href="product.html?id=bunny" title="View Plush Bunny Toy">Plush Bunny Toy</a></li>
+                                <li><a href="product.html?id=blocks" title="View Wooden Blocks Set">Wooden Blocks Set</a></li>
+                                <li><a href="product.html?id=gym" title="View Baby Play Gym">Baby Play Gym</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="accessories.html" title="Browse baby accessories">Accessories</a>
+                            <ul>
+                                <li><a href="product.html?id=shoes" title="View Soft Sole Baby Shoes">Soft Sole Baby Shoes</a></li>
+                                <li><a href="product.html?id=blanket" title="View Cotton Baby Blanket">Cotton Baby Blanket</a></li>
+                                <li><a href="product.html?id=diaperbag" title="View Diaper Bag Backpack">Diaper Bag Backpack</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Customer resources section -->
+                <div class="sitemap-section">
+                    <h3>Customer Resources</h3>
+                    <ul>
+                        <li><a href="contact.html#message-form" title="Send us a message">Send a Message</a></li>
+                        <li><a href="about.html#mission" title="Read our mission">Our Mission</a></li>
+                        <li><a href="about.html#team" title="Meet our team">Meet the Team</a></li>
+                        <li><a href="about.html" title="Read our privacy policy">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- External resources section -->
+            <div class="external-resources">
+                <h3>Similar Stores We Reference</h3>
+                <a href="https://babylovenz.com/" title="Visit Babylove NZ website" target="_blank">Babylove NZ</a>
+                <a href="https://bumbelou.com/" title="Visit Bumbelou website" target="_blank">Bumbelou</a>
+                <a href="https://eversimplicity.com/" title="Visit Ever Simplicity website" target="_blank">Ever Simplicity</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Store information bar -->
+    <div class="store-info">
+        <p>📍 Deer Park Mall &nbsp;|&nbsp; 🕐 Mon-Sun: 9am - 6pm &nbsp;|&nbsp; 📞 06-123-4567 &nbsp;|&nbsp; ✉️ info@babyfactory.co.nz</p>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 BabyFactory. All Rights Reserved. | Last updated: September 2026</p>
+        <p style="margin-top:8px;">
+            <a href="https://www.facebook.com/babyfactory" title="Visit our Facebook page" target="_blank">Facebook</a> |
+            <a href="https://www.instagram.com/babyfactory" title="Visit our Instagram page" target="_blank">Instagram</a> |
+            <a href="about.html" title="Read our privacy policy">Privacy Policy</a> |
+            <a href="sitemap.html" title="View site map">Site Map</a>
+        </p>
+        <p style="margin-top:8px; color:#A8DADC;">
+            Similar stores:
+            <a href="https://babylovenz.com/" title="Visit Babylove NZ website" target="_blank">Babylove NZ</a> |
+            <a href="https://bumbelou.com/" title="Visit Bumbelou website" target="_blank">Bumbelou</a> |
+            <a href="https://eversimplicity.com/" title="Visit Ever Simplicity website" target="_blank">Ever Simplicity</a>
+        </p>
+    </footer>
+</div>
+</body>
+</html>

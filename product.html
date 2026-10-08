@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BabyFactory - Product Details</title>
+    <style>
+        /* CSS Reset */
+        * { margin:0; padding:0; box-sizing:border-box; }
+        /* Skip link */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background-color: #FFB5A7;
+            color: white;
+            padding: 8px 15px;
+            text-decoration: none;
+            z-index: 1000;
+            font-weight: bold;
+            border-radius: 0 0 5px 0;
+        }
+        .skip-link:focus { top: 0; }
+        body { font-family:Arial,sans-serif; background-color:#FFF8F0; color:#4A4A4A; line-height:1.6; }
+        .container { max-width:1200px; min-width:768px; margin:0 auto; background-color:#FFF8F0; }
+        .banner { background-color:#FFF8F0; padding:20px; text-align:center; }
+        .banner h1 { color:#6D6875; font-size:32px; font-weight:bold; }
+        .banner p { color:#6D6875; font-size:14px; margin-top:5px; }
+        nav { background-color:#A8DADC; text-align:center; padding:12px; position:sticky; top:0; z-index:100; }
+        nav ul { list-style:none; }
+        nav ul li { display:inline; margin:0 15px; }
+        nav ul li a { color:#4A4A4A; text-decoration:none; font-size:15px; }
+        nav ul li a:hover { color:#FFB5A7; }
+        .active { font-weight:bold !important; color:#FFB5A7 !important; }
+        .breadcrumb { background-color:#FFF8F0; padding:12px 30px; font-size:14px; color:#6D6875; }
+        .breadcrumb a { color:#FFB5A7; text-decoration:none; }
+        .breadcrumb a:hover { text-decoration:underline; }
+        .breadcrumb span { font-weight:bold; }
+        /* Product detail layout */
+        .product-detail { display:flex; flex-wrap:wrap; padding:30px; gap:40px; }
+        .product-detail-img { flex:1; min-width:350px; }
+        .product-detail-img img { width:100%; border-radius:12px; box-shadow:0 2px 12px rgba(0,0,0,0.1); }
+        .product-detail-info { flex:1; min-width:350px; }
+        .product-detail-info h2 { color:#6D6875; font-size:28px; margin-bottom:10px; }
+        .product-detail-info .price { color:#FFB5A7; font-size:32px; font-weight:bold; margin-bottom:15px; }
+        .product-detail-info .description { font-size:15px; color:#4A4A4A; margin-bottom:20px; line-height:1.8; }
+        /* Product specs table */
+        .product-specs { width:100%; margin-bottom:20px; border-collapse:collapse; }
+        .product-specs td { padding:8px 0; border-bottom:1px solid #eee; font-size:14px; }
+        .product-specs td:first-child { color:#6D6875; font-weight:bold; width:120px; }
+        /* Size selector */
+        .size-selector { margin-bottom:20px; }
+        .size-selector label { display:block; color:#6D6875; font-weight:bold; margin-bottom:8px; }
+        .size-options { display:flex; gap:10px; flex-wrap:wrap; }
+        .size-option { padding:8px 20px; border:2px solid #A8DADC; border-radius:8px; cursor:pointer; font-size:14px; background-color:white; }
+        .size-option:hover { border-color:#FFB5A7; }
+        /* Quantity selector */
+        .quantity-selector { margin-bottom:25px; }
+        .quantity-selector label { display:block; color:#6D6875; font-weight:bold; margin-bottom:8px; }
+        .quantity-controls { display:flex; align-items:center; gap:15px; }
+        .qty-btn { width:36px; height:36px; border:none; border-radius:5px; background-color:#A8DADC; color:#4A4A4A; font-size:18px; font-weight:bold; cursor:pointer; }
+        .qty-btn:hover { background-color:#FFB5A7; color:white; }
+        .qty-value { font-size:18px; font-weight:bold; color:#6D6875; }
+        /* Buy buttons */
+        .buy-buttons { display:flex; gap:15px; margin-bottom:30px; }
+        .btn-add-cart { flex:1; background-color:#A8DADC; color:#4A4A4A; border:none; padding:15px; border-radius:8px; font-size:16px; font-weight:bold; cursor:pointer; }
+        .btn-add-cart:hover { background-color:#8fcace; }
+        .btn-buy-now { flex:1; background-color:#FFB5A7; color:white; border:none; padding:15px; border-radius:8px; font-size:16px; font-weight:bold; cursor:pointer; }
+        .btn-buy-now:hover { background-color:#ff9a8b; }
+        /* Trust badges */
+        .trust-badges { display:flex; justify-content:space-around; flex-wrap:wrap; gap:10px; padding:20px 0; border-top:1px solid #eee; }
+        .trust-badge { text-align:center; font-size:13px; color:#6D6875; }
+        .trust-badge .icon { font-size:25px; margin-bottom:5px; }
+        /* Related products */
+        .related { padding:30px; }
+        .related h2 { text-align:center; color:#6D6875; font-size:24px; margin-bottom:25px; }
+        .related-grid { display:flex; justify-content:center; flex-wrap:wrap; gap:15px; }
+        .related-card { width:180px; text-align:center; background-color:white; padding:12px; border-radius:10px; box-shadow:0 2px 8px rgba(0,0,0,0.1); text-decoration:none; color:inherit; display:block; transition:transform 0.2s; }
+        .related-card:hover { transform:translateY(-5px); }
+        .related-card img { width:100%; height:130px; object-fit:cover; border-radius:8px; margin-bottom:8px; }
+        .related-card h3 { font-size:14px; color:#6D6875; margin-bottom:3px; }
+        .related-card .price { color:#FFB5A7; font-weight:bold; font-size:15px; }
+        .store-info { background-color:#A8DADC; padding:25px; text-align:center; color:#4A4A4A; font-size:15px; line-height:2; }
+        footer { background-color:#4A4A4A; color:white; text-align:center; padding:20px; font-size:12px; }
+        footer a { color:#A8DADC; text-decoration:none; margin:0 8px; }
+        footer a:hover { text-decoration:underline; }
+        /* Responsive design - mobile breakpoint */
+        @media (max-width: 768px) {
+            .container { min-width: 100%; }
+            .banner h1 { font-size: 24px; }
+            nav ul li { display: block; margin: 5px 0; }
+            nav ul li a { font-size: 14px; }
+            .breadcrumb { padding: 10px 15px; font-size: 13px; }
+            /* Product detail stacks vertically on mobile */
+            .product-detail { flex-direction: column; padding: 20px 15px; gap: 20px; }
+            .product-detail-img, .product-detail-info { min-width: 100%; }
+            .product-detail-info h2 { font-size: 22px; }
+            .product-detail-info .price { font-size: 24px; }
+            /* Buy buttons stack vertically on mobile */
+            .buy-buttons { flex-direction: column; }
+            .related-card { width: 90%; margin: 10px auto; }
+            .related { padding: 20px 15px; }
+            footer p { font-size: 11px; }
+            footer a { display: inline-block; margin: 4px; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- Skip link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Header banner -->
+    <div class="banner">
+        <h1>🍼 BabyFactory</h1>
+        <p>Premium Baby Clothing, Toys & Accessories</p>
+    </div>
+
+    <!-- Main navigation -->
+    <nav role="navigation" aria-label="Main navigation">
+        <ul>
+            <li><a href="index.html" title="Go to home page">Home</a></li>
+            <li><a href="clothing.html" title="Browse baby clothing">Clothing</a></li>
+            <li><a href="toys.html" title="Browse baby toys">Toys</a></li>
+            <li><a href="accessories.html" title="Browse baby accessories">Accessories</a></li>
+            <li><a href="about.html" title="Learn about BabyFactory">About Us</a></li>
+            <li><a href="contact.html" title="Contact us">Contact</a></li>
+            <li> <a href = "sitemap.html" title = "View site map" > Site Map </a > </li >
+        </ul>
+    </nav>
+
+    <!-- Breadcrumb - dynamically updated by JavaScript -->
+    <div class="breadcrumb" id="breadcrumb">
+        <a href="index.html" title="Go to home page">Home</a>
+        &rsaquo;
+        <span id="bc-category">Category</span>
+        &rsaquo;
+        <span id="bc-name">Product</span>
+    </div>
+
+    <!-- Main content -->
+    <main role="main" id="main-content">
+        <!-- Product detail section - dynamically filled by JavaScript -->
+        <div class="product-detail">
+            <div class="product-detail-img">
+                <img id="product-image" src="" alt="">
+            </div>
+            <div class="product-detail-info">
+                <h2 id="product-name">Product Name</h2>
+                <p class="price" id="product-price">$0.00</p>
+                <p class="description" id="product-description">Product description.</p>
+
+                <!-- Product specifications table -->
+                <table class="product-specs" id="product-specs"></table>
+
+                <!-- Size selector -->
+                <div class="size-selector">
+                    <label>Select Size</label>
+                    <div class="size-options" id="size-options"></div>
+                </div>
+
+                <!-- Quantity selector -->
+                <div class="quantity-selector">
+                    <label>Quantity</label>
+                    <div class="quantity-controls">
+                        <button class="qty-btn" onclick="changeQty(-1)" aria-label="Decrease quantity">-</button>
+                        <span class="qty-value" id="qty">1</span>
+                        <button class="qty-btn" onclick="changeQty(1)" aria-label="Increase quantity">+</button>
+                    </div>
+                </div>
+
+                <!-- Buy buttons -->
+                <div class="buy-buttons">
+                    <button class="btn-add-cart" onclick="alert('Added to cart!')">Add to Cart</button>
+                    <button class="btn-buy-now" onclick="alert('Redirecting to checkout...')">Buy Now</button>
+                </div>
+
+                <!-- Trust badges -->
+                <div class="trust-badges">
+                    <div class="trust-badge">
+                        <div class="icon">🚚</div>
+                        Free Delivery over $50
+                    </div>
+                    <div class="trust-badge">
+                        <div class="icon">↩️</div>
+                        30-Day Returns
+                    </div>
+                    <div class="trust-badge">
+                        <div class="icon">🔒</div>
+                        Secure Payment
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Related products section -->
+        <div class="related">
+            <h2>You May Also Like</h2>
+            <div class="related-grid" id="related-grid"></div>
+        </div>
+    </main>
+
+    <!-- Store information bar -->
+    <div class="store-info">
+        <p>📍 Deer Park Mall &nbsp;|&nbsp; 🕐 Mon-Sun: 9am - 6pm &nbsp;|&nbsp; 📞 06-123-4567 &nbsp;|&nbsp; ✉️ info@babyfactory.co.nz</p>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 BabyFactory. All Rights Reserved. | Last updated: September 2026</p>
+        <p style="margin-top:8px;">
+            <a href="https://www.facebook.com/babyfactory" title="Visit our Facebook page" target="_blank">Facebook</a> |
+            <a href="https://www.instagram.com/babyfactory" title="Visit our Instagram page" target="_blank">Instagram</a> |
+            <a href="about.html" title="Read our privacy policy">Privacy Policy</a>
+             <a href = "sitemap.html" title = "View site map" > Site Map </a >
+        </p>
+        <p style="margin-top:8px; color:#A8DADC;">
+            Similar stores:
+            <a href="https://babylovenz.com/" title="Visit Babylove NZ website" target="_blank">Babylove NZ</a> |
+            <a href="https://bumbelou.com/" title="Visit Bumbelou website" target="_blank">Bumbelou</a> |
+            <a href="https://eversimplicity.com/" title="Visit Ever Simplicity website" target="_blank">Ever Simplicity</a>
+        </p>
+    </footer>
+</div>
+
+<script>
+    // Product database - all product info in one place
+    var products = {
+        // Featured products (index.html)
+        romper:   { name:"Cotton Baby Romper", price:"$29.99", img:"images/romper.jpg", cat:"Clothing", catLink:"clothing.html",
+                     desc:"Made from 100% certified organic cotton, this super-soft romper keeps your baby comfortable all day long. Features easy-snap buttons for quick diaper changes.",
+                     specs:[["Material","100% Organic Cotton"],["Age Range","0-24 months"],["Color","Sage Green"],["Care","Machine Wash Cold"]],
+                     sizes:["0-3M","3-6M","6-12M","12-18M","18-24M"] },
+        bunny:    { name:"Plush Bunny Toy", price:"$24.99", img:"images/bunny.jpg", cat:"Toys", catLink:"toys.html",
+                     desc:"Super soft and cuddly plush bunny toy. Perfect for snuggling at bedtime. Made with hypoallergenic filling and embroidered eyes for safety.",
+                     specs:[["Material","Plush Polyester"],["Age Range","0+ months"],["Height","25cm"],["Safety","Embroidered Eyes"]],
+                     sizes:[] },
+        shoes:    { name:"Soft Sole Baby Shoes", price:"$34.99", img:"images/shoes.jpg", cat:"Accessories", catLink:"accessories.html",
+                     desc:"Flexible soft-sole shoes that protect little feet while allowing natural movement. Non-slip bottom for safety.",
+                     specs:[["Material","Soft Leather"],["Age Range","6-24 months"],["Sole","Non-slip Rubber"],["Color","Tan"]],
+                     sizes:["6-12M","12-18M","18-24M"] },
+        teether:  { name:"Silicone Teether Set", price:"$19.99", img:"images/teether.jpg", cat:"Toys", catLink:"toys.html",
+                     desc:"Set of 3 BPA-free silicone teethers in fun shapes. Easy for little hands to hold. Can be chilled for extra soothing relief.",
+                     specs:[["Material","Food-Grade Silicone"],["Set of","3 pieces"],["BPA-Free","Yes"],["Dishwasher Safe","Yes"]],
+                     sizes:[] },
+
+        // Clothing products (clothing.html)
+        dress:    { name:"Floral Summer Dress", price:"$34.99", img:"images/clothes2.jpg", cat:"Clothing", catLink:"clothing.html",
+                     desc:"Lightweight floral dress perfect for summer days. Breathable cotton blend fabric keeps baby cool.",
+                     specs:[["Material","Cotton Blend"],["Age Range","3-24 months"],["Pattern","Floral"],["Care","Machine Wash Cold"]],
+                     sizes:["3-6M","6-12M","12-18M","18-24M"] },
+        hoodie:   { name:"Fleece Hoodie", price:"$39.99", img:"images/clothes3.jpg", cat:"Clothing", catLink:"clothing.html",
+                     desc:"Warm and cozy fleece hoodie for chilly days. Features a kangaroo pocket and cute bear ears on the hood.",
+                     specs:[["Material","Fleece Blend"],["Age Range","6-24 months"],["Features","Bear Ear Hood"],["Care","Machine Wash"]],
+                     sizes:["6-12M","12-18M","18-24M"] },
+        pants:    { name:"Comfort Cotton Pants", price:"$24.99", img:"images/clothes4.jpg", cat:"Clothing", catLink:"clothing.html",
+                     desc:"Soft elastic-waist cotton pants for everyday comfort. Easy to put on and take off.",
+                     specs:[["Material","100% Cotton"],["Age Range","0-24 months"],["Waist","Elastic Band"],["Care","Machine Wash"]],
+                     sizes:["0-3M","3-6M","6-12M","12-18M","18-24M"] },
+        tshirt:   { name:"Striped Baby T-Shirt", price:"$19.99", img:"images/clothes5.jpg", cat:"Clothing", catLink:"clothing.html",
+                     desc:"Classic striped t-shirt made from soft cotton. Goes with everything in baby's wardrobe.",
+                     specs:[["Material","100% Cotton"],["Age Range","3-24 months"],["Pattern","Striped"],["Care","Machine Wash"]],
+                     sizes:["3-6M","6-12M","12-18M","18-24M"] },
+        sweater:  { name:"Knitted Baby Sweater", price:"$36.99", img:"images/clothes6.jpg", cat:"Clothing", catLink:"clothing.html",
+                     desc:"Hand-finished knitted sweater that keeps baby warm and stylish. Button detail at shoulder for easy dressing.",
+                     specs:[["Material","Acrylic Blend"],["Age Range","3-24 months"],["Style","Knitted"],["Buttons","Shoulder"]],
+                     sizes:["3-6M","6-12M","12-18M","18-24M"] },
+        overalls: { name:"Baby Denim Overalls", price:"$42.99", img:"images/clothes7.jpg", cat:"Clothing", catLink:"clothing.html",
+                     desc:"Durable and cute denim overalls with adjustable straps. Perfect for active toddlers.",
+                     specs:[["Material","Cotton Denim"],["Age Range","12-24 months"],["Adjustable","Yes"],["Care","Machine Wash"]],
+                     sizes:["12-18M","18-24M"] },
+        pajama:   { name:"Pajama Set", price:"$27.99", img:"images/clothes8.jpg", cat:"Clothing", catLink:"clothing.html",
+                     desc:"Two-piece pajama set made from ultra-soft cotton. Snug fit for safe sleeping.",
+                     specs:[["Material","100% Cotton"],["Age Range","0-24 months"],["Set","Top + Bottom"],["Care","Machine Wash"]],
+                     sizes:["0-3M","3-6M","6-12M","12-18M","18-24M"] },
+
+        // Toy products (toys.html)
+        stacking: { name:"Stacking Cups Set", price:"$14.99", img:"images/toy2.jpg", cat:"Toys", catLink:"toys.html",
+                     desc:"Colorful stacking cups that help develop motor skills. 8 cups in different sizes and colors.",
+                     specs:[["Pieces","8 cups"],["Material","BPA-free Plastic"],["Age Range","6+ months"],["Skill","Motor Skills"]],
+                     sizes:[] },
+        rattle:   { name:"Musical Rattle", price:"$9.99", img:"images/toy4.jpg", cat:"Toys", catLink:"toys.html",
+                     desc:"Gentle-sounding musical rattle that stimulates baby's auditory senses. Easy-grip handle.",
+                     specs:[["Material","BPA-free Plastic"],["Age Range","3+ months"],["Sound","Gentle Rattle"],["Battery","None"]],
+                     sizes:[] },
+        blocks:   { name:"Wooden Blocks Set", price:"$29.99", img:"images/toy5.jpg", cat:"Toys", catLink:"toys.html",
+                     desc:"30-piece wooden block set with numbers and letters. Non-toxic paint, smooth edges.",
+                     specs:[["Pieces","30 blocks"],["Material","Natural Wood"],["Age Range","12+ months"],["Paint","Non-toxic"]],
+                     sizes:[] },
+        gym:      { name:"Baby Play Gym", price:"$49.99", img:"images/toy6.jpg", cat:"Toys", catLink:"toys.html",
+                     desc:"Wooden play gym with hanging toys for tummy time. Folds flat for easy storage.",
+                     specs:[["Material","Wood + Cotton"],["Age Range","0+ months"],["Includes","4 hanging toys"],["Foldable","Yes"]],
+                     sizes:[] },
+        sorter:   { name:"Shape Sorter Toy", price:"$22.99", img:"images/toy7.jpg", cat:"Toys", catLink:"toys.html",
+                     desc:"Classic shape sorter with 12 colorful blocks. Teaches shapes, colors and problem-solving.",
+                     specs:[["Pieces","12 blocks"],["Material","BPA-free Plastic"],["Age Range","12+ months"],["Skill","Problem Solving"]],
+                     sizes:[] },
+        book:     { name:"Soft Fabric Book", price:"$16.99", img:"images/toy8.jpg", cat:"Toys", catLink:"toys.html",
+                     desc:"Crinkle-sound fabric book with high-contrast pages. Machine washable.",
+                     specs:[["Material","Cotton + Crinkle Film"],["Age Range","0+ months"],["Pages","8 pages"],["Washable","Yes"]],
+                     sizes:[] },
+
+        // Accessory products (accessories.html)
+        beanie:      { name:"Knit Baby Beanie", price:"$19.99", img:"images/acc2.jpg", cat:"Accessories", catLink:"accessories.html",
+                     desc:"Soft knitted beanie that keeps baby's head warm. Stretchy fit for growing heads.",
+                     specs:[["Material","Acrylic Blend"],["Age Range","0-24 months"],["Stretchy","Yes"],["Care","Hand Wash"]],
+                     sizes:["0-6M","6-12M","12-24M"] },
+        socks:       { name:"Cute Ankle Socks (3-pack)", price:"$14.99", img:"images/acc3.jpg", cat:"Accessories", catLink:"accessories.html",
+                     desc:"Pack of 3 pairs of ankle socks with non-slip bottom. Cute animal designs.",
+                     specs:[["Material","Cotton Blend"],["Pack","3 pairs"],["Non-slip","Yes"],["Care","Machine Wash"]],
+                     sizes:[] },
+        bib:         { name:"Waterproof Bib Set", price:"$16.99", img:"images/acc4.jpg", cat:"Accessories", catLink:"accessories.html",
+                     desc:"Set of 2 waterproof bibs with crumb catcher pocket. Easy to wipe clean.",
+                     specs:[["Material","Silicone"],["Set","2 bibs"],["Waterproof","Yes"],["Pocket","Yes"]],
+                     sizes:[] },
+        clips:       { name:"Baby Hair Clips Set", price:"$12.99", img:"images/acc5.jpg", cat:"Accessories", catLink:"accessories.html",
+                     desc:"Set of 6 cute hair clips with non-slip grip. Gentle on baby's hair.",
+                     specs:[["Material","Fabric + Metal"],["Set","6 clips"],["Non-slip","Yes"],["Gentle","Yes"]],
+                     sizes:[] },
+        sunglasses:  { name:"Sunglasses for Babies", price:"$18.99", img:"images/acc6.jpg", cat:"Accessories", catLink:"accessories.html",
+                     desc:"UV400 protection sunglasses with soft strap. Shatterproof lenses for safety.",
+                     specs:[["UV Protection","UV400"],["Lens","Shatterproof"],["Strap","Soft Adjustable"],["Age Range","0-3 years"]],
+                     sizes:[] },
+        blanket:     { name:"Cotton Baby Blanket", price:"$27.99", img:"images/acc7.jpg", cat:"Accessories", catLink:"accessories.html",
+                     desc:"Multi-use cotton blanket for stroller, crib, or tummy time. Breathable and soft.",
+                     specs:[["Material","100% Cotton"],["Size","75x100cm"],["Uses","Multi-purpose"],["Care","Machine Wash"]],
+                     sizes:[] },
+        diaperbag:   { name:"Diaper Bag Backpack", price:"$59.99", img:"images/acc8.jpg", cat:"Accessories", catLink:"accessories.html",
+                     desc:"Spacious diaper bag backpack with insulated pockets and changing pad included.",
+                     specs:[["Material","Waterproof Nylon"],["Pockets","12+ pockets"],["Includes","Changing Pad"],["Insulated","Yes"]],
+                     sizes:[] }
+    };
+
+    // Get product ID from URL parameter (?id=xxx)
+    var params = new URLSearchParams(window.location.search);
+    var productId = params.get("id") || "romper";
+
+    // If product ID not found, use romper as default
+    var product = products[productId] || products["romper"];
+
+    // Fill in product name in page title
+    document.title = "BabyFactory - " + product.name + " | Product Details";
+
+    // Fill in breadcrumb
+    document.getElementById("bc-category").innerHTML = '<a href="' + product.catLink + '">' + product.cat + '</a>';
+    document.getElementById("bc-name").textContent = product.name;
+
+    // Fill in product image, name, price, description
+    document.getElementById("product-image").src = product.img;
+    document.getElementById("product-image").alt = product.name;
+    document.getElementById("product-name").textContent = product.name;
+    document.getElementById("product-price").textContent = product.price;
+    document.getElementById("product-description").textContent = product.desc;
+
+    // Fill in product specs table
+    var specsHtml = "";
+    for (var i = 0; i < product.specs.length; i++) {
+        specsHtml += "<tr><td>" + product.specs[i][0] + "</td><td>" + product.specs[i][1] + "</td></tr>";
+    }
+    document.getElementById("product-specs").innerHTML = specsHtml;
+
+    // Fill in size options (if any)
+    var sizesHtml = "";
+    if (product.sizes.length > 0) {
+        for (var i = 0; i < product.sizes.length; i++) {
+            sizesHtml += '<div class="size-option">' + product.sizes[i] + '</div>';
+        }
+    } else {
+        sizesHtml = '<div class="size-option">One Size</div>';
+    }
+    document.getElementById("size-options").innerHTML = sizesHtml;
+
+    // Fill in related products (pick 3 different products)
+    var relatedIds = Object.keys(products).filter(function(k) { return k !== productId; });
+    // Shuffle and pick 3
+    relatedIds.sort(function() { return 0.5 - Math.random(); });
+    var picked = relatedIds.slice(0, 3);
+    var relatedHtml = "";
+    for (var i = 0; i < picked.length; i++) {
+        var rp = products[picked[i]];
+        relatedHtml += '<a href="product.html?id=' + picked[i] + '" class="related-card" title="View ' + rp.name + '">';
+        relatedHtml += '<img src="' + rp.img + '" alt="' + rp.name + '">';
+        relatedHtml += '<h3>' + rp.name + '</h3>';
+        relatedHtml += '<p class="price">' + rp.price + '</p>';
+        relatedHtml += '</a>';
+    }
+    document.getElementById("related-grid").innerHTML = relatedHtml;
+
+    // Quantity selector - increase or decrease the quantity value
+    var qty = 1;
+    function changeQty(delta) {
+        qty = qty + delta;
+        if (qty < 1) qty = 1;
+        document.getElementById("qty").textContent = qty;
+    }
+</script>
+</body>
+</html>

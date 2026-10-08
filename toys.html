@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BabyFactory - Toys | Fun & Safe Baby Toys</title>
+    <style>
+        /* CSS Reset */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        /* Skip link */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background-color: #FFB5A7;
+            color: white;
+            padding: 8px 15px;
+            text-decoration: none;
+            z-index: 1000;
+            font-weight: bold;
+            border-radius: 0 0 5px 0;
+        }
+        .skip-link:focus { top: 0; }
+        /* Body */
+        body { font-family: Arial, sans-serif; background-color: #FFF8F0; color: #4A4A4A; line-height: 1.6; }
+        .container { max-width: 1200px; min-width: 768px; margin: 0 auto; background-color: #FFF8F0; }
+        .banner { background-color: #FFF8F0; padding: 20px; text-align: center; }
+        .banner h1 { color: #6D6875; font-size: 32px; font-weight: bold; }
+        .banner p { color: #6D6875; font-size: 14px; margin-top: 5px; }
+        nav { background-color: #A8DADC; text-align: center; padding: 12px; position: sticky; top: 0; z-index: 100; }
+        nav ul { list-style: none; }
+        nav ul li { display: inline; margin: 0 15px; }
+        nav ul li a { color: #4A4A4A; text-decoration: none; font-size: 15px; }
+        nav ul li a:hover { color: #FFB5A7; }
+        .active { font-weight: bold !important; color: #FFB5A7 !important; }
+        .breadcrumb { background-color: #FFF8F0; padding: 12px 30px; font-size: 14px; color: #6D6875; }
+        .breadcrumb a { color: #FFB5A7; text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        .breadcrumb span { font-weight: bold; }
+        .hero { background-color: #FFE5D9; text-align: center; padding: 60px 20px; }
+        .hero h2 { font-size: 32px; color: #6D6875; font-weight: bold; margin-bottom: 10px; }
+        .hero p { font-size: 18px; color: #6D6875; }
+        .section-title { text-align: center; padding: 40px 20px 10px; color: #6D6875; font-size: 26px; font-weight: bold; }
+        .section-subtitle { text-align: center; padding: 0 20px 25px; color: #6D6875; font-size: 15px; }
+        .products { display: flex; justify-content: center; flex-wrap: wrap; padding: 20px 30px 40px; }
+        .product-card {
+            width: 220px;
+            text-align: center;
+            margin: 15px;
+            background-color: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        .product-img { width: 100%; height: 180px; object-fit: cover; border-radius: 8px; margin-bottom: 10px; }
+        .product-card h3 { font-size: 16px; color: #6D6875; margin-bottom: 5px; }
+        .price { color: #FFB5A7; font-weight: bold; font-size: 18px; }
+        .view-details {
+            display: inline-block;
+            margin-top: 8px;
+            padding: 5px 15px;
+            background-color: #A8DADC;
+            color: #4A4A4A;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        /* Toy safety info section */
+        .safety-info { background-color: #FFE5D9; padding: 50px 30px; text-align: center; }
+        .safety-info h2 { color: #6D6875; font-size: 24px; margin-bottom: 20px; }
+        .safety-grid { display: flex; justify-content: center; flex-wrap: wrap; max-width: 900px; margin: 0 auto; }
+        .safety-item {
+            width: 250px;
+            margin: 15px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .safety-item .icon { font-size: 35px; margin-bottom: 10px; }
+        .safety-item h3 { color: #6D6875; font-size: 16px; margin-bottom: 8px; }
+        .safety-item p { font-size: 13px; color: #4A4A4A; }
+        .store-info { background-color: #A8DADC; padding: 25px; text-align: center; color: #4A4A4A; font-size: 15px; line-height: 2; }
+        footer { background-color: #4A4A4A; color: white; text-align: center; padding: 20px; font-size: 12px; }
+        footer a { color: #A8DADC; text-decoration: none; margin: 0 8px; }
+        footer a:hover { text-decoration: underline; }
+        /* Responsive design - mobile breakpoint */
+        @media (max-width: 768px) {
+            .container { min-width: 100%; }
+            .banner h1 { font-size: 24px; }
+            nav ul li { display: block; margin: 5px 0; }
+            nav ul li a { font-size: 14px; }
+            .breadcrumb { padding: 10px 15px; font-size: 13px; }
+            .hero { padding: 40px 15px; }
+            .hero h2 { font-size: 24px; }
+            .hero p { font-size: 15px; }
+            .section-title { font-size: 22px; padding: 30px 15px 5px; }
+            .section-subtitle { font-size: 14px; padding: 0 15px 20px; }
+            .product-card { width: 90%; margin: 10px auto; }
+            .safety-item { width: 90%; margin: 10px auto; }
+            .safety-info { padding: 30px 15px; }
+            footer p { font-size: 11px; }
+            footer a { display: inline-block; margin: 4px; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- Skip link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <div class="banner">
+        <h1>🍼 BabyFactory</h1>
+        <p>Premium Baby Clothing, Toys & Accessories</p>
+    </div>
+
+    <nav role="navigation" aria-label="Main navigation">
+        <ul>
+            <li><a href="index.html" title="Go to home page">Home</a></li>
+            <li><a href="clothing.html" title="Browse baby clothing">Clothing</a></li>
+            <li><a href="toys.html" class="active" title="Browse baby toys">Toys</a></li>
+            <li><a href="accessories.html" title="Browse baby accessories">Accessories</a></li>
+            <li><a href="about.html" title="Learn about BabyFactory">About Us</a></li>
+            <li><a href="contact.html" title="Contact us">Contact</a></li>
+            <li> <a href = "sitemap.html" title = "View site map" > Site Map </a > </li >
+        </ul>
+    </nav>
+
+    <div class="breadcrumb">
+        <a href="index.html" title="Go to home page">Home</a>
+        &rsaquo;
+        <span>Toys</span>
+    </div>
+
+    <main role="main" id="main-content">
+        <div class="hero">
+            <h2>Baby &amp; Toddler Toys</h2>
+            <p>Safe, fun toys that help your baby learn and grow</p>
+        </div>
+
+        <h2 class="section-title">Our Toys Collection</h2>
+        <p class="section-subtitle">Click any product to view details and purchase</p>
+        <div class="products">
+            <a href="product.html?id=bunny" class="product-card" title="View Plush Bunny Toy">
+                <img class="product-img" src="images/toy1.jpg" alt="Plush Bunny Toy">
+                <h3>Plush Bunny Toy</h3>
+                <p class="price">$24.99</p>
+                <span class="view-details">View Details</span>
+            </a>
+            <a href="product.html?id=stacking" class="product-card" title="View Stacking Cups Set">
+                <img class="product-img" src="images/toy2.jpg" alt="Stacking Cups Set">
+                <h3>Stacking Cups Set</h3>
+                <p class="price">$14.99</p>
+                <span class="view-details">View Details</span>
+            </a>
+            <a href="product.html?id=teether" class="product-card" title="View Silicone Teether">
+                <img class="product-img" src="images/toy3.jpg" alt="Silicone Teether">
+                <h3>Silicone Teether</h3>
+                <p class="price">$12.99</p>
+                <span class="view-details">View Details</span>
+            </a>
+            <a href="product.html?id=rattle" class="product-card" title="View Musical Rattle">
+                <img class="product-img" src="images/toy4.jpg" alt="Musical Rattle">
+                <h3>Musical Rattle</h3>
+                <p class="price">$9.99</p>
+                <span class="view-details">View Details</span>
+            </a>
+            <a href="product.html?id=blocks" class="product-card" title="View Wooden Blocks Set">
+                <img class="product-img" src="images/toy5.jpg" alt="Wooden Blocks Set">
+                <h3>Wooden Blocks Set</h3>
+                <p class="price">$29.99</p>
+                <span class="view-details">View Details</span>
+            </a>
+            <a href="product.html?id=gym" class="product-card" title="View Baby Play Gym">
+                <img class="product-img" src="images/toy6.jpg" alt="Baby Play Gym">
+                <h3>Baby Play Gym</h3>
+                <p class="price">$49.99</p>
+                <span class="view-details">View Details</span>
+            </a>
+            <a href="product.html?id=sorter" class="product-card" title="View Shape Sorter Toy">
+                <img class="product-img" src="images/toy7.jpg" alt="Shape Sorter Toy">
+                <h3>Shape Sorter Toy</h3>
+                <p class="price">$22.99</p>
+                <span class="view-details">View Details</span>
+            </a>
+            <a href="product.html?id=book" class="product-card" title="View Soft Fabric Book">
+                <img class="product-img" src="images/toy8.jpg" alt="Soft Fabric Book">
+                <h3>Soft Fabric Book</h3>
+                <p class="price">$16.99</p>
+                <span class="view-details">View Details</span>
+            </a>
+        </div>
+
+        <div class="safety-info">
+            <h2>Our Toy Safety Standards</h2>
+            <div class="safety-grid">
+                <div class="safety-item">
+                    <div class="icon">✅</div>
+                    <h3>Non-Toxic Materials</h3>
+                    <p>All our toys are made from BPA-free, non-toxic materials safe for babies.</p>
+                </div>
+                <div class="safety-item">
+                    <div class="icon">🔬</div>
+                    <h3>Safety Tested</h3>
+                    <p>Every toy meets NZ safety standards and is tested for choking hazards.</p>
+                </div>
+                <div class="safety-item">
+                    <div class="icon">🍼</div>
+                    <h3>Age-Appropriate</h3>
+                    <p>Each toy is labeled with the recommended age range for safe play.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="store-info">
+        <p>📍 Deer Park Mall &nbsp;|&nbsp; 🕐 Mon-Sun: 9am - 6pm &nbsp;|&nbsp; 📞 06-123-4567 &nbsp;|&nbsp; ✉️ info@babyfactory.co.nz</p>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 BabyFactory. All Rights Reserved. | Last updated: September 2026</p>
+        <p style="margin-top:8px;">
+            <a href="https://www.facebook.com/babyfactory" title="Visit our Facebook page" target="_blank">Facebook</a> |
+            <a href="https://www.instagram.com/babyfactory" title="Visit our Instagram page" target="_blank">Instagram</a> |
+            <a href="about.html" title="Read our privacy policy">Privacy Policy</a>
+             <a href = "sitemap.html" title = "View site map" > Site Map </a >
+        </p>
+        <p style="margin-top:8px; color:#A8DADC;">
+            Similar stores:
+            <a href="https://babylovenz.com/" title="Visit Babylove NZ website" target="_blank">Babylove NZ</a> |
+            <a href="https://bumbelou.com/" title="Visit Bumbelou website" target="_blank">Bumbelou</a> |
+            <a href="https://eversimplicity.com/" title="Visit Ever Simplicity website" target="_blank">Ever Simplicity</a>
+        </p>
+    </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BabyFactory - Contact Us | Get in Touch</title>
+    <style>
+        /* CSS Reset */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        /* Skip link */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background-color: #FFB5A7;
+            color: white;
+            padding: 8px 15px;
+            text-decoration: none;
+            z-index: 1000;
+            font-weight: bold;
+            border-radius: 0 0 5px 0;
+        }
+        .skip-link:focus { top: 0; }
+        /* Body */
+        body { font-family: Arial, sans-serif; background-color: #FFF8F0; color: #4A4A4A; line-height: 1.6; }
+        .container { max-width: 1200px; min-width: 768px; margin: 0 auto; background-color: #FFF8F0; }
+        .banner { background-color: #FFF8F0; padding: 20px; text-align: center; }
+        .banner h1 { color: #6D6875; font-size: 32px; font-weight: bold; }
+        .banner p { color: #6D6875; font-size: 14px; margin-top: 5px; }
+        nav { background-color: #A8DADC; text-align: center; padding: 12px; position: sticky; top: 0; z-index: 100; }
+        nav ul { list-style: none; }
+        nav ul li { display: inline; margin: 0 15px; }
+        nav ul li a { color: #4A4A4A; text-decoration: none; font-size: 15px; font-weight: normal; }
+        nav ul li a:hover { color: #FFB5A7; }
+        .active { font-weight: bold !important; color: #FFB5A7 !important; }
+        .breadcrumb { background-color: #FFF8F0; padding: 12px 30px; font-size: 14px; color: #6D6875; }
+        .breadcrumb a { color: #FFB5A7; text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        .breadcrumb span { font-weight: bold; }
+        .hero { background-color: #FFE5D9; text-align: center; padding: 60px 20px; }
+        .hero h2 { font-size: 32px; color: #6D6875; font-weight: bold; margin-bottom: 10px; }
+        .hero p { font-size: 18px; color: #6D6875; }
+        /* Main content area - centered, max width 900px */
+        .content { padding: 40px 30px; max-width: 900px; margin: 0 auto; }
+        /* Contact info cards - flexbox row */
+        .info-blocks { display: flex; flex-wrap: wrap; justify-content: space-around; margin-bottom: 40px; }
+        .info-card {
+            width: 250px;
+            text-align: center;
+            background-color: white;
+            padding: 30px 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin: 10px;
+        }
+        .info-card .icon { font-size: 45px; margin-bottom: 15px; }
+        .info-card h3 { color: #6D6875; font-size: 18px; margin-bottom: 10px; }
+        .info-card p { font-size: 15px; color: #4A4A4A; line-height: 1.8; }
+        /* Opening hours table with id/headers for accessibility */
+        .hours-table {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto 40px;
+            border-collapse: collapse;
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .hours-table th { background-color: #A8DADC; color: #4A4A4A; padding: 12px; text-align: left; }
+        .hours-table td { padding: 12px; border-bottom: 1px solid #eee; }
+        .hours-table tr:last-child td { border-bottom: none; }
+        /* Contact form section */
+        .form-section { background-color: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-top: 20px; }
+        .form-section h2 { color: #6D6875; font-size: 22px; margin-bottom: 20px; text-align: center; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; color: #6D6875; font-weight: bold; }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+        }
+        .form-group textarea { height: 100px; resize: vertical; }
+        /* Submit button - coral background */
+        .submit-btn {
+            background-color: #FFB5A7;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .submit-btn:hover { background-color: #ff9a8b; }
+        .store-info { background-color: #A8DADC; padding: 25px; text-align: center; color: #4A4A4A; font-size: 15px; line-height: 2; }
+        footer { background-color: #4A4A4A; color: white; text-align: center; padding: 20px; font-size: 12px; }
+        footer a { color: #A8DADC; text-decoration: none; margin: 0 8px; }
+        footer a:hover { text-decoration: underline; }
+        /* Responsive design - mobile breakpoint */
+        @media (max-width: 768px) {
+            .container { min-width: 100%; }
+            .banner h1 { font-size: 24px; }
+            nav ul li { display: block; margin: 5px 0; }
+            nav ul li a { font-size: 14px; }
+            .breadcrumb { padding: 10px 15px; font-size: 13px; }
+            .hero { padding: 40px 15px; }
+            .hero h2 { font-size: 24px; }
+            .hero p { font-size: 15px; }
+            .content { padding: 25px 15px; }
+            .info-card { width: 90%; margin: 10px auto; }
+            .hours-table { font-size: 13px; }
+            .hours-table th, .hours-table td { padding: 8px; }
+            .form-section { padding: 20px 15px; }
+            footer p { font-size: 11px; }
+            footer a { display: inline-block; margin: 4px; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- Skip link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <div class="banner">
+        <h1>🍼 BabyFactory</h1>
+        <p>Premium Baby Clothing, Toys & Accessories</p>
+    </div>
+
+    <nav role="navigation" aria-label="Main navigation">
+        <ul>
+            <li><a href="index.html" title="Go to home page">Home</a></li>
+            <li><a href="clothing.html" title="Browse baby clothing">Clothing</a></li>
+            <li><a href="toys.html" title="Browse baby toys">Toys</a></li>
+            <li><a href="accessories.html" title="Browse baby accessories">Accessories</a></li>
+            <li><a href="about.html" title="Learn about BabyFactory">About Us</a></li>
+            <li><a href="contact.html" class="active" title="Contact us">Contact</a></li>
+            <li> <a href = "sitemap.html" title = "View site map" > Site Map </a > </li >
+        </ul>
+    </nav>
+
+    <div class="breadcrumb">
+        <a href="index.html" title="Go to home page">Home</a>
+        &rsaquo;
+        <span>Contact</span>
+    </div>
+
+    <main role="main" id="main-content">
+        <div class="hero">
+            <h2>Contact Us</h2>
+            <p>We'd love to hear from you</p>
+        </div>
+
+        <div class="content">
+            <!-- Contact information cards -->
+            <div class="info-blocks">
+                <div class="info-card">
+                    <div class="icon">📍</div>
+                    <h3>Visit Us</h3>
+                    <p>Shop 12, Deer Park Mall<br>Palmerston North<br>New Zealand</p>
+                </div>
+                <div class="info-card">
+                    <div class="icon">📞</div>
+                    <h3>Call Us</h3>
+                    <p>Phone: 06-123-4567<br>Mon-Sun: 9am - 6pm</p>
+                </div>
+                <div class="info-card">
+                    <div class="icon">✉️</div>
+                    <h3>Email Us</h3>
+                    <p>info@babyfactory.co.nz<br>We reply within 24 hours</p>
+                </div>
+            </div>
+
+            <!-- Opening hours table with id and headers attributes for accessibility -->
+            <h2 style="text-align:center; color:#6D6875; margin-bottom:20px;">Opening Hours</h2>
+            <table class="hours-table">
+                <tr>
+                    <th id="day">Day</th>
+                    <th id="hours">Hours</th>
+                </tr>
+                <tr>
+                    <td headers="day">Monday - Friday</td>
+                    <td headers="hours">9:00 AM - 6:00 PM</td>
+                </tr>
+                <tr>
+                    <td headers="day">Saturday</td>
+                    <td headers="hours">9:00 AM - 6:00 PM</td>
+                </tr>
+                <tr>
+                    <td headers="day">Sunday</td>
+                    <td headers="hours">10:00 AM - 5:00 PM</td>
+                </tr>
+                <tr>
+                    <td headers="day">Public Holidays</td>
+                    <td headers="hours">10:00 AM - 4:00 PM</td>
+                </tr>
+            </table>
+
+            <!-- Contact form with labels for accessibility -->
+            <div class="form-section">
+                <h2>Send Us a Message</h2>
+                <form onsubmit="alert('Thank you! We will get back to you soon.'); return false;">
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Your Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+                    <div style="text-align:center;">
+                        <button type="submit" class="submit-btn">Send Message</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <div class="store-info">
+        <p>📍 Deer Park Mall &nbsp;|&nbsp; 🕐 Mon-Sun: 9am - 6pm &nbsp;|&nbsp; 📞 06-123-4567 &nbsp;|&nbsp; ✉️ info@babyfactory.co.nz</p>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 BabyFactory. All Rights Reserved. | Last updated: September 2026</p>
+        <p style="margin-top:8px;">
+            <a href="https://www.facebook.com/babyfactory" title="Visit our Facebook page" target="_blank">Facebook</a> |
+            <a href="https://www.instagram.com/babyfactory" title="Visit our Instagram page" target="_blank">Instagram</a> |
+            <a href="about.html" title="Read our privacy policy">Privacy Policy</a>
+             <a href = "sitemap.html" title = "View site map" > Site Map </a >
+        </p>
+        <p style="margin-top:8px; color:#A8DADC;">
+            Similar stores:
+            <a href="https://babylovenz.com/" title="Visit Babylove NZ website" target="_blank">Babylove NZ</a> |
+            <a href="https://bumbelou.com/" title="Visit Bumbelou website" target="_blank">Bumbelou</a> |
+            <a href="https://eversimplicity.com/" title="Visit Ever Simplicity website" target="_blank">Ever Simplicity</a>
+        </p>
+    </footer>
+</div>
+</body>
+</html>
